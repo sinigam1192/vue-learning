@@ -1,0 +1,45 @@
+<html>
+    <title>vueを学ぼう！</title>
+    <script src="https://unpkg.com/vue@2.5.17"></script>
+
+    <div id="app">
+        <table>
+            <thead>
+                <tr>
+                    <th Style="width: 100px;">商品名</th>
+                    <th Style="width: 100px;">値段</th>
+                    <th Style="width: 100px;">カートに入れている数</th>
+                    <th Style="width: 100px;">小計</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="item in items" :key="item.name">
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.price }}円</td>
+                    <td>
+                        <input 
+                            style="width: 50%" 
+                            type="number" 
+                            min="0" 
+                            v-model.lazy="item.quantity"
+                        >個
+                    </td>
+                    <td>{{ item.price * item.quantity }}円</td>
+                </tr>
+            </tbody>
+        </table>
+        <p v-show="!canBuy" :style="errorMessageStyle">
+            {{ 1000 | numberWithDelimiter }}円以上から購入できます。
+        </p>
+        <h4>税別合計：{{ totalPrice | numberWithDelimiter }}円</h4>
+        <h3>合計：{{ totalPriceWithTax | numberWithDelimiter }}円 （税：{{ totalPriceTax | numberWithDelimiter }}円）</h3>
+        <button
+            :disabled="!canBuy"
+            @click="doBuy"
+        >
+        購入
+        </button>
+    </div>
+
+    <script src="app.js"></script>
+</html>

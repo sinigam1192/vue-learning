@@ -1,0 +1,85 @@
+<html>
+    <title>vue-routesを学ぼう！</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/vue@2.5.17"></script>
+    <script src="https://unpkg.com/vue-router@3.0.1"></script>
+    <!-- ここに内容を入力 -->
+    <div id="app">
+        <router-link :to="{name: 'top_path'}">TOP</router-link>
+        <router-link :to="{name: 'user_index_path'}">USERS</router-link>
+        <router-link :to="{path: '/users?redirect=true'}">Users redirect is false</router-link>
+        <router-link :to="{name: 'user_show_path', params: {id: 123 }}">MyPage</router-link>
+        <router-view></router-view>
+    </div>
+    <!-- ここまで内容を入力する -->
+    
+    
+    <script>
+    var router = new VueRouter({
+        routes: [
+            {
+                path: '/',
+                name: 'root',
+                component:{
+                    template: '<h1>root</h1>'
+                }
+            },
+            {
+                path: '/top',
+                name: 'top_path',
+                component:{
+                    template: '<h1>top</h1>'
+                }
+            },
+            {
+                path: '/users',
+                name: 'user_index_path',
+                component:{
+                    template: '<h1>users</h1>'
+                },
+                beforeEnter: function(to, from, next){
+                    console.log(to.query)
+                    if (to.query.redirect === 'true'){
+                        next('/top')
+                    }else{
+                        next()
+                    }
+                }
+            },
+            {
+                path: '/users/:id',
+                name: 'user_show_path',
+                component:{
+                    template: '<h1>userIDは{{ $route.params.id }}です</h1>'
+                }
+            },
+        ]
+    })
+
+    var UserList = {
+        template: '#user-list',
+        data: function(){
+            return {
+                users: function() {}
+            }
+        }
+    }
+
+    // グローバルのフック関数
+    // 例えばログインならリダイレクトしないなど
+    // router.beforeEach(function( to, from, next){
+    //     if (to.path === '/users'){
+    //         next('/top')
+    //     }else{
+    //         next()
+    //     }
+    // })
+    
+
+    var app = new Vue({
+    router: router  
+    }).$mount("#app")
+
+
+    </script>
+</html>

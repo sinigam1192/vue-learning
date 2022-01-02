@@ -1,0 +1,12 @@
+<html>
+    <title>コンポーネントを学ぼう！</title>
+    <script src="https://unpkg.com/vue@2.5.17"></script>
+    <!-- ここに内容を入力 -->
+    <div id='fruits-component'>
+        <ol>                                                                                                            
+            <fruits-item-name v-for="fruit in fruitsItems" :key="fruit.name" :fruits-item="fruit"></fruits-item-name>
+        </ol>
+    </div>
+    <!-- ここまで内容を入力する -->
+    <script src='app.js'></script>
+</html>

@@ -1,0 +1,24 @@
+<html>
+    <title>コンポーネントを学ぼう！</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/vue@2.5.17"></script>
+    <!-- ここに内容を入力 -->
+
+    <div id="login-example">
+        <user-login></user-login>
+    </div>
+
+    <script type="text/x-template" id="login-template">
+        <div id="login-template">
+            <div>
+                <input type="text" placeholder="ログインID" v-model="userid">
+            </div>
+            <div>
+                <input type="password" placeholder="パスワード" v-model="password">
+            </div>
+            <button @click="login">ログイン</button>
+        </div>
+    </script>
+    <!-- ここまで内容を入力する -->
+    <script src='app.js'></script>
+</html>
