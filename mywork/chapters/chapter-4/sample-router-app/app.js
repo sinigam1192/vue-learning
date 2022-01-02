@@ -302,3 +302,4 @@ window.app = app
 // SPAの場合、ブラウザの戻るボタンなどないためクライアント側で管理が必要。以下や他の検討が必要？
 // ex). URL Hash
 // ex). HTML-5 History API　など
+
