@@ -2,6 +2,7 @@
     <title>vue-routesを学ぼう！</title>
     <link rel="stylesheet" href="style.css">
    
+    <!-- base nav page -->
     <div id="app">
         <nav>
             <router-link to="/top">トップページ</router-link>
@@ -12,7 +13,16 @@
 
     <!-- user-list template -->
     <script type="text/x-template" id="user-list">
-        <div>ユーザー 一覧</div>
+        <div>
+            <div class="loading" v-if="loading">読み込み中...</div>
+            <div class="error" v-if="error">
+                {{ error }}
+            </div>
+            <div>ユーザー 一覧</div>
+            <div v-for="user in users" :key="user.id">
+                <h2>{{ user.name }}</h2>
+            </div>
+        </div>
     </script>
 
     <!-- reading javascript -->
