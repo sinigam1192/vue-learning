@@ -1,11 +1,38 @@
 <html>
-    <title>学習内容をここに入力！</title>
+    <title>tansitionを学ぶ!</title>
     
     <script src="https://unpkg.com/vue@2.5.17"></script>
-    <script src="https://unpkg.com/vue-router@3.0.1"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css">
     
     <div id="app">
+        <div class="anime-section">
+            <h2>フェードイン・フェードアウト</h2>
+            <button @click="isShown = !isShown">表示の切り替え</button>
+            <transition>
+                <p v-show="isShown">Hello, world!</p>
+            </transition>
+            <div>
+                <p>MEMO: googleCrhomeでは、アニメーションにブレイクポイントすることが可能。</p>
+                <p>Devtools < Elementsタブ < アニメーションの要素(transitionのとこ)を右クリック < Break on < attribute modifications</p>
+            </div>
+        </div>
+
+        <div class="anime-section">
+            <h2>animate.cssとカスタムトランジションクラス</h2>
+            <p><input type="text" v-model="animationClass"></p>
+            <button @click="isShownAnime = !isShownAnime">表示の切り替え</button>
+            <transition
+                :enter-active-class="activeClass"
+                :leave-active-class="activeClass"
+            >
+                <p v-show="isShownAnime">Hello, world!</p>
+            </transition>
+        </div>
+
     </div>
+
+    
 
     <script src="app.js"></script>
 </html>
