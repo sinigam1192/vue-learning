@@ -25,6 +25,25 @@
         </div>
     </script>
 
+    <!-- user-detail template -->
+    <script type="text/x-template" id="user-detail">
+        <div>
+            <div class="loading" v-if="loading">読み込み中...</div>
+            <div class="error" v-if="error">
+                {{ error }}
+            </div>
+            <div v-if="user">
+                <div>ユーザー 詳細</div>
+                <h2>ユーザーID:{{ user.id }}</h2>
+                <h2>ユーザー名:{{ user.name }}</h2>
+                <h2>使える技</h2>
+                <ul>
+                    <li v-for="skill in user.skills">{{ skill.name }}</li>
+                </ul>
+            </div>
+        </div>
+    </script>
+
     <!-- reading javascript -->
     <script src="https://unpkg.com/vue@2.5.17"></script>
     <script src="https://unpkg.com/vue-router@3.0.1"></script>
