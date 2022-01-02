@@ -7,6 +7,7 @@
         <nav>
             <router-link to="/top">トップページ</router-link>
             <router-link to="/users">ユーザー一覧</router-link>
+            <router-link to="/users/new">ユーザー登録</router-link>
         </nav>
         <router-view></router-view>    
     </div>
@@ -20,7 +21,9 @@
             </div>
             <div>ユーザー 一覧</div>
             <div v-for="user in users" :key="user.id">
-                <h2>{{ user.name }}</h2>
+                <router-link :to="{ name: 'user', params: { userId: user.id }}">
+                    <h2>{{ user.name }}</h2>
+                </router-link>
             </div>
         </div>
     </script>
@@ -40,6 +43,29 @@
                 <ul>
                     <li v-for="skill in user.skills">{{ skill.name }}</li>
                 </ul>
+            </div>
+        </div>
+    </script>
+
+    <!-- user-detail template -->
+    <script type="text/x-template" id="user-create">
+        <div>
+            <div class="sending" v-if="sending">送信中...</div>
+            <div>
+                <label>名前：</label>
+                <input type="text" v-model="user.name">
+            </div>
+            <label>使える技：</label>
+            <input type="text" v-model="user.skills[0].name">
+            <input type="text" v-model="user.skills[1].name">
+            <input type="text" v-model="user.skills[2].name">
+            <input type="text" v-model="user.skills[3].name">
+            <div class="error" v-if="error">
+                {{ error }}
+            </div>
+            
+            <div>
+                <input type="button" @click="createUser" value="送信">
             </div>
         </div>
     </script>

@@ -77,6 +77,7 @@ var UserList = {
     }
 }
 
+// path: users/:userIdの時に表示するcomponent　テンプレートは text/x-template形式でそのidは#user-detail
 var UserDetail = {
     template: '#user-detail',
     data: function(){
@@ -103,7 +104,59 @@ var UserDetail = {
                 }else{
                     this.user = user
                 }
-                // bind を確認
+            }).bind(this))
+        }
+    } 
+}
+
+// path: users/newの時に表示するcomponent　テンプレートは text/x-template形式でそのidは#user-create
+var UserCreate = {
+    template: '#user-create',
+    data: function(){
+        return {
+            sending: false,
+            error: null,
+            user: this.defaultUser(),
+        }
+    },
+    created: function(){
+    },
+    // watch　ルートの変更を感知してデータを再取得する
+    watch: {
+        '$route': 'fetchData'
+    },
+    methods: {
+        defaultUser: function() {
+            return {
+                name: '',
+                skills: [
+                    {name: ''},
+                    {name: ''},
+                    {name: ''},
+                    {name: ''}
+                ]
+            }
+        },
+
+        createUser: function() {
+            if (this.user.name.trim() === ''){
+                this.error = '名前は必須です。'
+                return
+            }
+            if(this.user.skills.length === 0){
+                this.error = '使える技は1つは必要です。'
+                return
+            }
+            postUser(this.user, (function (err, user){
+                this.sending = false
+                if (err){
+                    this.error = toString()
+                } else {
+                    this.error = null
+                    this.user = this.defaultUser()
+                    alert('ユーザーが作成されました。')
+                    this.$router.push('/users')
+                }
             }).bind(this))
         }
     } 
@@ -121,8 +174,16 @@ var getUser = function (userId, callback){
         var filterdUsers = userData.filter(function(user){
             return user.id === parseInt(userId, 10)
         })
-        console.log(filterdUsers)
         callback(null, filterdUsers && filterdUsers[0])
+    }, 1000)
+}
+
+// 擬似API経由で情報を更新したようにする 擬似POST
+var postUser = function (params, callback){
+    setTimeout(function(){
+        params.id = userData.length + 1
+        userData.push(params)
+        callback(null, params)
     }, 1000)
 }
 
@@ -139,7 +200,12 @@ router = new VueRouter({
             component: UserList,
         },
         {
+            path: '/users/new',
+            component: UserCreate,
+        },
+        {
             path: '/users/:userId',
+            name: 'user',
             component: UserDetail,
         },
     ]
