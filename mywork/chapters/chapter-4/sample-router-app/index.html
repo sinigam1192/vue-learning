@@ -1,0 +1,97 @@
+<html>
+    <title>vue-routesを学ぼう！</title>
+    <link rel="stylesheet" href="style.css">
+   
+    <!-- base nav page -->
+    <div id="app">
+        <nav>
+            <router-link to="/top">トップページ</router-link>
+            <router-link to="/users">ユーザー一覧</router-link>
+            <router-link to="/users/new?redirect=true">ユーザー登録</router-link>
+            <router-link to="/login" v-show="!Auth.loggedIn()">ログイン</router-link>
+            <router-link to="/logout" v-show="Auth.loggedIn()">ログアウト</router-link>
+        </nav>
+        <router-view></router-view>    
+    </div>
+
+    <!-- user-list template -->
+    <script type="text/x-template" id="user-list">
+        <div>
+            <div class="loading" v-if="loading">読み込み中...</div>
+            <div class="error" v-if="error">
+                {{ error }}
+            </div>
+            <div>ユーザー 一覧</div>
+            <div v-for="user in users" :key="user.id">
+                <router-link :to="{ name: 'user', params: { userId: user.id }}">
+                    <h2>{{ user.name }}</h2>
+                </router-link>
+            </div>
+        </div>
+    </script>
+
+    <!-- user-detail template -->
+    <script type="text/x-template" id="user-detail">
+        <div>
+            <div class="loading" v-if="loading">読み込み中...</div>
+            <div class="error" v-if="error">
+                {{ error }}
+            </div>
+            <div v-if="user">
+                <div>ユーザー 詳細</div>
+                <h2>ユーザーID:{{ user.id }}</h2>
+                <h2>ユーザー名:{{ user.name }}</h2>
+                <h2>使える技</h2>
+                <ul>
+                    <li v-for="skill in user.skills">{{ skill.name }}</li>
+                </ul>
+            </div>
+        </div>
+    </script>
+
+    <!-- user-create template -->
+    <script type="text/x-template" id="user-create">
+        <div>
+            <div class="sending" v-if="sending">送信中...</div>
+            <div>
+                <label>名前：</label>
+                <input type="text" v-model="user.name">
+            </div>
+            <label>使える技：</label>
+            <input type="text" v-model="user.skills[0].name">
+            <input type="text" v-model="user.skills[1].name">
+            <input type="text" v-model="user.skills[2].name">
+            <input type="text" v-model="user.skills[3].name">
+            <div class="error" v-if="error">
+                {{ error }}
+            </div>
+            
+            <div>
+                <input type="button" @click="createUser" value="送信">
+            </div>
+        </div>
+    </script>
+
+    <!-- login template -->
+    <script type="text/x-template" id="login">
+        <div>
+            <h2>Login</h2>
+            <p v-if="$route.query.redirect">ログインしてください。</p>
+            <form @submit.prevent="login">
+                <label><input type="email" v-model="email" placeholder="email"></label>
+                <label><input type="password" v-model="pass" placeholder="password"></label>
+                <br>
+                <div>
+                    <input type="submit" value="ログイン">
+                    <p v-if="error" class="error">ログインに失敗しました。</p>
+                </div>
+            </form>
+        </div>
+    </script>
+
+    <!-- reading javascript -->
+    <script src="https://unpkg.com/vue@2.5.17"></script>
+    <script src="https://unpkg.com/vue-router@3.0.1"></script>
+    <script src='app.js'></script>
+
+</html>
