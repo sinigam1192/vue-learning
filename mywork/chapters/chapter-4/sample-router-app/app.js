@@ -278,6 +278,10 @@ router = new VueRouter({
                 next('/')
             },
         },
+        {
+            path: '*',
+            redirect: '/users',
+        }
     ]
 })
 
@@ -289,3 +293,8 @@ app = new Vue({
 }).$mount('#app')
 
 window.app = app
+
+// MEMO:
+// $route や　$routerはインスタンスを示す。
+// それぞれプロパティやネストしたルーティングも可能。
+// ネストする場合は、children: {}　内に明示する。
