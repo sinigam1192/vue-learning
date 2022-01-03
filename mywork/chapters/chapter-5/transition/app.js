@@ -10,6 +10,61 @@
 // c-leave 削除用アニメーション開始前に追加〜削除用アニメーション開始時まで削除
 // v-leave-to 削除用アニメーションの開始に追加〜削除アニメーション終了後に削除
 // v-leave-active 削除アニメーション開始前から削除用アニメーション終了後まである。
+var PullDownMenu ={
+    data: function () {
+        return {
+            isShownJava: false,
+            name: 'めにゅう',
+            items: [
+                '1-1',
+                '1-2',
+                '1-3'
+            ]
+        }
+    },
+    template: `
+        <div class="javascript" @mouseleave="isShownJava = false">
+            <p class="javascript" @mouseover="isShownJava = true"><a href="#" class="menu javascript">{{name}}</a></p>
+            <transition
+                @before-enter="beforeEnter"
+                @enter="enter"
+                @leave="leave"
+                :css="false"
+            >
+                <ul v-if="isShownJava" class="javascript" >
+                    <li v-for="item in items" :key="item" class="javascript">
+                        <a href="#" class="menu-item javascript">{{ item }}</a>
+                    </li>
+                </ul>
+            </transition>
+        </div>
+    `,
+    methods: {
+        beforeEnter: function(el){
+            el.style.height = '0px'
+            el.style.opacity = '0'
+        },
+        enter: function(el, done){
+            anime({
+                targets: el,
+                opacity: 1,
+                height: el.scrollHeight + 'px',
+                duration: 3000,
+                complete: done,
+            })
+        },
+        leave: function(el, done){
+            anime({
+                targets: el,
+                opacity: 0,
+                height: '0px',
+                duration: 300,
+                complete: done,
+            })
+        }
+    }
+}
+
 
 var vm = new Vue({
     el: '#app',
@@ -24,6 +79,9 @@ var vm = new Vue({
         activeClass: function(){
             return this.animationClass + ' animated'
         }
+    },
+    components: {
+        PullDownMenu,
     }
 })
 

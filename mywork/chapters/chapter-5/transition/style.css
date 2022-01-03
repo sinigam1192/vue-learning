@@ -30,3 +30,46 @@
     padding: 20px;
     margin: 10px 0px;
 }
+
+div.javascript, ul.javascript, li.javascript, a.javascript, p.javascript {
+    margin: 0;
+    padding: 0;
+}
+
+ul.javascript {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+}
+
+div.javascript {
+    width: 90px;
+    border: solid 1px black;
+    
+  }
+  
+  .menu.javascript {
+    width: 90px;
+    text-decoration: none;
+    background-color: #9999FF;
+    color: #000;
+    border : solid 1px #6666CC;
+    display: block;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+  }
+  
+  .menu-item.javascript {
+    width: 90px;
+    text-decoration: none;
+    background-color: #CCCCFF;
+    color: #000;
+    border : solid 1px #6666CC;
+    border-top: none;
+    display: block;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+  }
