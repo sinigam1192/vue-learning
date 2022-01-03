@@ -13,6 +13,16 @@
             <p>コンテンツなしのコンポーネント</p>
             <my-button></my-button>
         </div>
+    
+
+        <div>
+            <my-page>
+                <!-- templateのslot に当てはめているためHTMLの順序は影響しない -->
+                <p>this is a sngle slot</p>
+                <!-- <h2 slot="footer">this element is slot name footer</h2> -->
+                <h1 slot="header">This is a slot name is header</h1>
+            </my-page>
+        </div>
     </div>
 
     <script src="app.js"></script>
