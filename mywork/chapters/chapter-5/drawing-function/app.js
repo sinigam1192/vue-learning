@@ -21,7 +21,6 @@ var RenderMyButton = {
     props: ['href', 'tag'],
     render: function (createElement) {
         var tag = this.tag || (this.href ? 'a' : 'button')
-
         return createElement(tag, {
             attrs: {
                 href: this.href || '#',
@@ -30,10 +29,24 @@ var RenderMyButton = {
     }
 }
 
-
+// createElement arg: [tagName, ComponentOptions, AJAX], options, child-node
+// 第一引数は必須。
 
 var vm = new Vue({
     el: '#app',
+    // 
+    // render: function (createElement){
+    //     return createElement(MyButton, {
+    //         attrs: {
+    //             href: 'https://vuejs.org/'
+    //         },
+    //         props: {
+    //             tag: 'a'
+    //         },
+
+    //     }, 'anctorText')
+
+    // },
     components:{
         MyButton: MyButton,
         RenderMyButton: RenderMyButton, 
