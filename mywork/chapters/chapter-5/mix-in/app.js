@@ -56,10 +56,45 @@ var TextShareButton = {
     }
 }
 
+// vue mixinの定義
+Vue.mixin({
+    data: function() {
+        return {
+            loggedInUser: null,
+        }
+    },
+    created: function() {
+        // $optionsでVueインスタンス生成時のオプションを参照できる
+        var auth = this.$options.auth
+        this.loggedInUser = JSON.parse(sessionStorage.getItem('loggedInUser'))
+        if ( auth && !this.loggedInUser) {
+            window.alert('このページはログインが必要です。');
+        }
+    },
+})
+
+// consoleで下記コードでsessionが追加される。
+// sessionStorage.setItem('loggedInUser', JSON.stringify({name: 'shinohara'}))
+
+var LoginRequiredPage = {
+    auth: true,
+    template: `
+    <div>
+        <p v-if="!loggedInUser">
+        このページはログインが必要です。
+        </p>
+        <p v-else>
+            {{ loggedInUser.name }}さんでログインしています。
+        </p>
+    </div>
+    `,
+}
+
 new Vue({
     el: '#app',
     components: {
         IconShareButton,
         TextShareButton,
+        LoginRequiredPage,
     },
 })
