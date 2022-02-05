@@ -1,0 +1,52 @@
+<html>
+    <title>slotについて学ぶ!</title>
+    
+    <script src="https://unpkg.com/vue@2.5.17"></script>
+    <script src="https://unpkg.com/vue-router@3.0.1"></script>
+    <style>
+        .contents{
+            border: solid 1px black;
+            padding: 10px;
+            margin: 10px;
+        }
+    </style>
+    <div id="app">
+        <div class="contents">
+            <div>
+                <p>コンテンツありのコンポーネント</p>
+                <my-button>送信する</my-button>
+            </div>
+            <div>
+                <p>コンテンツなしのコンポーネント</p>
+                <my-button></my-button>
+            </div>
+        </div>
+    
+
+        <div class="contents">
+            <my-page>
+                <!-- templateのslot に当てはめているためHTMLの順序は影響しない -->
+                <p>this is a sngle slot</p>
+                <h2 slot="footer">this element is slot name footer</h2>
+                <h1 slot="header">This is a slot name is header</h1>
+            </my-page>
+        </div>
+    
+
+        <div class="contents">
+            <!-- 親コンポーネント側のtextLabelがバインディングされる -->
+            <scope-check-my-button>{{ textLabel }}</scope-check-my-button>
+        </div>
+
+        <div class="contents">
+            <!-- では子コンポーネネント側をバインディングしたい時はどうするか？ -->
+            <h2>買い物リスト</h2>
+            <todo-list :todos="todos">
+                <li slot-scope="{ todo }" v-if="todo.isCompleted" :key="todo.id">
+                    {{ todo.text }}
+                </li>
+            </todo-list>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</html>

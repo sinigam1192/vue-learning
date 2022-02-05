@@ -1,0 +1,31 @@
+<html>
+    <title>カスタムディレクティブ</title>
+    <style>
+        .contents{
+            border: solid 1px black;
+            padding: 10px;
+            margin: 10px;
+        }
+    </style>
+    <script src="https://unpkg.com/vue@2.5.17"></script>
+    <script src="https://unpkg.com/vue-router@3.0.1"></script>
+    
+    <div id="app">
+        <div class="contents">
+            <p>pathあり</p>
+            <img v-fallback-image src="./logo.png" :alt="altText">
+        </div>
+        <div class="contents">
+            <p>pathなし</p>
+            <!-- <img v-fallback-image src="./logo2.png" :alt="altText"> -->
+        </div>
+        <div class="contents">
+            <p>pathなし 機能追加ver</p>
+            <img v-fallback-image.once="noImageURL" src="./logo2.png" :alt="altText">
+        </div>
+        
+
+    </div>
+
+    <script src="app.js"></script>
+</html>
