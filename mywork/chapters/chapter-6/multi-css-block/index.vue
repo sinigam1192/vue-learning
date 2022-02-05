@@ -32,7 +32,4 @@ export default {
         font-size: 200%;
         background-color: cyan;
     }
-    p {
-        text-decoration: underline;
-    }
 </style>

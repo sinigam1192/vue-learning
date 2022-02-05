@@ -5,6 +5,10 @@
     </div>
 </template>
 
+<style>
+    p { text-decoration: underline; }
+</style>
+
 <style scoped>
     .foo{ 
         border: solid 1px green;
