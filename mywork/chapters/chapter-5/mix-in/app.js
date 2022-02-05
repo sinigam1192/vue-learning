@@ -6,6 +6,9 @@ var Sharable = {
             _isProcessing: false,
         }
     },
+    created: function() {
+        console.log("sharableのフック呼び出し");
+    },
     methods: {
         share: function() {
             if(this._isProcessing){
@@ -28,6 +31,9 @@ var IconShareButton = {
     template: `
     <button @click="share"><i class="fas fa-share-square"/></button>
     `,
+    created: function() {
+        console.log("IconShareButtonのフック呼び出し");
+    },
 }
 
 var TextShareButton = {
@@ -39,7 +45,15 @@ var TextShareButton = {
         return {
             buttonLabel: 'シェアする',
         }
-     }
+     },
+     created: function() {
+        console.log("TextShareButtonのフック呼び出し");
+    },
+    methods: {
+        share: function() {
+            window.alert('TextShareButtonのshareメソッド');
+        }
+    }
 }
 
 new Vue({
